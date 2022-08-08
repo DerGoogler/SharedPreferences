@@ -1,6 +1,6 @@
 {
-  "name": "sharedpreferences",
-  "version": "1.0.8",
+  "name": "web-shared-preferences",
+  "version": "1.0.9",
   "description": "An simple class to manage the loacal storage",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -28,14 +28,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/DerGoogler/SharedPreferences"
+    "url": "https://dergoogler.com/DerGoogler/SharedPreferences"
   },
   "author": "Der_Googler <jimmyboehm@dergoogler.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/DerGoogler/SharedPreferences/issues"
+    "url": "https://dergoogler.com/DerGoogler/SharedPreferences/issues"
   },
-  "homepage": "https://github.com/DerGoogler/SharedPreferences#README",
+  "homepage": "https://dergoogler.com/DerGoogler/SharedPreferences#README",
   "dependencies": {
     "googlers-tools": "^1.2.9"
   },
