@@ -1,18 +1,19 @@
-# Web SharedPreferences
+# SharedPreferences
 
 An simple class to manage the loacal storage
 
 ## Install
+To use this package need you to setup our [registry](https://repo.dergoogler.com/dergoogler/updates/wiki/Setup-registry). Then can you install outr packages
 
-```bash
-bun add web-shared-preferences
-bun add -d tslib
+```shell
+npm install --save @dergoogler/sharedpreferences
+npm install --save-dev tslib
 ```
 
 ### Setup
 
 ```ts
-import { SharedPreferences } from 'web-shared-preferences';
+import { SharedPreferences } from '@dergoogler/sharedpreferences';
 
 interface Person {
     name: string

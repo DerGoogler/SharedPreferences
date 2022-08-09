@@ -1,6 +1,6 @@
 {
-  "name": "web-shared-preferences",
-  "version": "1.1.0",
+  "name": "@dergoogler/sharedpreferences",
+  "version": "1.1.1",
   "description": "An simple class to manage the loacal storage",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -37,6 +37,7 @@
   },
   "homepage": "https://repo.dergoogler.com/DerGoogler/SharedPreferences",
   "dependencies": {
+    "@dergoogler/sharedpreferences": "^1.1.0",
     "googlers-tools": "^1.2.9"
   },
   "devDependencies": {
