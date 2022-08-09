@@ -9,7 +9,7 @@ To use this package need you to setup our [registry](https://dergoogler.com/derg
 npm install --save @dergoogler/sharedpreferences
 npm install --save-dev tslib
 ```
-
+ 
 ### Setup
 
 ```ts
