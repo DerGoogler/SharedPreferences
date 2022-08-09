@@ -3,7 +3,7 @@
 An simple class to manage the loacal storage
 
 ## Install
-To use this package need you to setup our [registry](https://repo.dergoogler.com/dergoogler/updates/wiki/Setup-registry). Then can you install outr packages
+To use this package need you to setup our [registry](https://dergoogler.com/dergoogler/updates/wiki/Setup-registry). Then can you install outr packages
 
 ```shell
 npm install --save @dergoogler/sharedpreferences
