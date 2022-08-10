@@ -30,8 +30,6 @@ class SharedPreferences implements SharedPreferences {
 
   public constructor() {}
 
-  public readonly length: number = localStorage.length;
-
   public setString(key: string, value: string): void {
     localStorage.setItem(key, String(value));
   }
