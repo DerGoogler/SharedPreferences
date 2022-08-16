@@ -1,14 +1,17 @@
-# SharedPreferences
+# NOTE!
+This package has been moved to https://repo.dergoogler.com/DerGoogler/SharedPreferences
+
+# Web SharedPreferences
 
 An simple class to manage the loacal storage
 
 ## Install
 
-```shell
-npm install --save web-shared-preferences
-npm install --save-dev tslib
+```bash
+bun add web-shared-preferences
+bun add -d tslib
 ```
- 
+
 ### Setup
 
 ```ts
