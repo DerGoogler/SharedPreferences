@@ -1,6 +1,6 @@
 {
-  "name": "@dergoogler/sharedpreferences",
-  "version": "1.1.1",
+  "name": "web-shared-preferences",
+  "version": "1.1.4",
   "description": "An simple class to manage the loacal storage",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -28,20 +28,21 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://repo.dergoogler.com/DerGoogler/SharedPreferences"
+    "url": "https://dergoogler.com/dergoogler/SharedPreferences"
   },
   "author": "Der_Googler <jimmyboehm@dergoogler.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://repo.dergoogler.com/DerGoogler/SharedPreferences/issues"
+    "url": "https://dergoogler.com/dergoogler/SharedPreferences/issues"
   },
-  "homepage": "https://repo.dergoogler.com/DerGoogler/SharedPreferences",
+  "homepage": "https://dergoogler.com/dergoogler/SharedPreferences",
   "dependencies": {
     "@dergoogler/sharedpreferences": "^1.1.0",
-    "googlers-tools": "^1.2.9"
+    "googlers-tools": "^1.4.3",
+    "react": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.14",
+    "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.5",
     "postcss": "^8.4.14",
     "rollup-plugin-postcss": "^4.0.2",

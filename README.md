@@ -3,17 +3,16 @@
 An simple class to manage the loacal storage
 
 ## Install
-To use this package need you to setup our [registry](https://dergoogler.com/dergoogler/updates/wiki/Setup-registry). Then can you install outr packages
 
 ```shell
-npm install --save @dergoogler/sharedpreferences
+npm install --save web-shared-preferences
 npm install --save-dev tslib
 ```
  
 ### Setup
 
 ```ts
-import { SharedPreferences } from '@dergoogler/sharedpreferences';
+import { SharedPreferences } from 'web-shared-preferences';
 
 interface Person {
     name: string

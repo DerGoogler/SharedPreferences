@@ -1,25 +1,24 @@
-import { SharedPreferences, prefs, DefaultKeys } from "./../src/index";
+type ISetState<T> = ((newValue: T) => void) | ((prevValue: T) => T);
+type IUseStateArg<T> = T | (() => T);
 
-interface Keys extends DefaultKeys {
-  myStr: string;
-  myNumb: number;
-  myBool: boolean;
-  myObj: Partial<{
-    test: "Hello World!";
-  }>;
-}
+// export const useString = <T extends any>(
+//   defaultValue: IUseStateArg<T>
+// ): [T, ISetState<T>] => {
 
-const pref = new SharedPreferences();
 
-const key = prefs<Keys>();
 
-pref.setString("test", "value");
+  function useString(key, defValue): [T, ISetState<T>] {
+    // const pref: SharedPreferences = new SharedPreferences();
+    const pref = localStorage;
+    const get = pref.getItem(key);
 
-// Get string
-key.myStr("");
-// Get number
-key.myNumb(0);
-// Get boolean
-key.myBool(false);
-// Get object
-key.myObj({}).test;
+    const toggle = useCallback((value) => pref.setItem(key, value));
+
+    return [get, toggle];
+  }
+
+  const [test, setTest] = useString("test");
+
+  setTest("this-test");
+
+  console.log(test);

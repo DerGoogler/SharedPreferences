@@ -1,4 +1,4 @@
-import { util } from "googlers-tools";
+import { obj, util } from "googlers-tools";
 import SharedPreferenceError from "./util/SharedPreferenceError";
 
 interface SharedPreferences {
@@ -14,14 +14,17 @@ interface SharedPreferences {
   clearPrefs(): void;
 }
 
-/**
- * Default typed
- */
-type DefType = {};
-export type KeyType<T> = {
-  [key in keyof T]: (defValue: T[key]) => T[key];
-};
-export type DefaultKeys = { length: number };
+namespace SharedPreferences {
+  /**
+   * Default typed
+   */
+  export type DefType = {};
+  export type KeyType<T> = {
+    [key in keyof T]: (defValue: T[key]) => T[key];
+  };
+  export type DefaultKeys = { length: number };
+}
+
 /**
  * Simple class to manage the web local sotrage
  */
@@ -47,7 +50,7 @@ class SharedPreferences implements SharedPreferences {
    * @param key
    * @param value
    */
-  public setJSON<T = Partial<DefType>>(key: string, value: Partial<T>): void {
+  public setJSON<T = Partial<SharedPreferences.DefType>>(key: string, value: Partial<T>): void {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
@@ -134,7 +137,7 @@ class SharedPreferences implements SharedPreferences {
     }
   }
 
-  public getJSON<T = Partial<DefType>>(key: string, defValue: Partial<T>): Partial<T> {
+  public getJSON<T = Partial<SharedPreferences.DefType>>(key: string, defValue: Partial<T>): Partial<T> {
     try {
       const get = localStorage.getItem(key);
       if (get === null) {
@@ -176,42 +179,31 @@ type sharedpreferences = typeof sharedpreferences[keyof typeof sharedpreferences
  */
 const sharedpreferences: SharedPreferences = new SharedPreferences();
 
-function prefs<K extends DefaultKeys = DefaultKeys>(): KeyType<K> {
+function prefs<K extends SharedPreferences.DefaultKeys = SharedPreferences.DefaultKeys>(): SharedPreferences.KeyType<K> {
   // @ts-ignore
-  let pref: KeyType<K> = Object.keys(localStorage);
+  let pref: SharedPreferences.KeyType<K> = Object.keys(localStorage);
 
-  const hasJsonStructure = (str: string) => {
-    if (typeof str !== "string") return false;
-    try {
-      const result = JSON.parse(str);
-      const type = Object.prototype.toString.call(result);
-      return type === "[object Object]" || type === "[object Array]";
-    } catch (err) {
-      return false;
-    }
-  };
-
-  Object.keys(localStorage).forEach(method => {
-    switch (typeof localStorage[method]) {
+  obj.keysMap<void>(localStorage)(key => {
+    switch (typeof localStorage[key]) {
       case "string":
-        if (hasJsonStructure(localStorage[method])) {
-          pref[method] = <T = Partial<DefType>>(defValue: Partial<T>): Partial<T> => {
-            return sharedpreferences.getJSON<T>(method, defValue);
+        if (obj.hasJsonStructure(localStorage[key])) {
+          pref[key] = <T = Partial<SharedPreferences.DefType>>(defValue: Partial<T>): Partial<T> => {
+            return sharedpreferences.getJSON<T>(key, defValue);
           };
         } else {
-          pref[method] = (defValue: string): string => {
-            return sharedpreferences.getString(method, defValue);
+          pref[key] = (defValue: string): string => {
+            return sharedpreferences.getString(key, defValue);
           };
         }
         break;
       case "number":
-        pref[method] = (defValue: number): number => {
-          return sharedpreferences.getNumber(method, defValue);
+        pref[key] = (defValue: number): number => {
+          return sharedpreferences.getNumber(key, defValue);
         };
         break;
       case "boolean":
-        pref[method] = (defValue: boolean): boolean => {
-          return sharedpreferences.getBoolean(method, defValue);
+        pref[key] = (defValue: boolean): boolean => {
+          return sharedpreferences.getBoolean(key, defValue);
         };
         break;
     }
