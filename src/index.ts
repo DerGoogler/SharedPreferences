@@ -1,5 +1,36 @@
-import { obj, util } from "googlers-tools";
+import { util } from "googlers-tools";
 import SharedPreferenceError from "./util/SharedPreferenceError";
+
+/** This Web Storage API interface provides access to a particular domain's session or local storage. It allows, for example, the addition, modification, or deletion of stored data items. */
+interface Storage {
+  /** Returns the number of key/value pairs. */
+  readonly length: number;
+  /**
+   * Removes all key/value pairs, if there are any.
+   *
+   * Dispatches a storage event on Window objects holding an equivalent Storage object.
+   */
+  clear(): void;
+  /** Returns the current value associated with the given key, or null if the given key does not exist. */
+  getItem(key: string): string | null;
+  /** Returns the name of the nth key, or null if n is greater than or equal to the number of key/value pairs. */
+  key(index: number): string | null;
+  /**
+   * Removes the key/value pair with the given key, if a key/value pair with the given key exists.
+   *
+   * Dispatches a storage event on Window objects holding an equivalent Storage object.
+   */
+  removeItem(key: string): void;
+  /**
+   * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
+   *
+   * Throws a "QuotaExceededError" DOMException exception if the new value couldn't be set. (Setting could fail if, e.g., the user has disabled storage for the site, or if the quota has been exceeded.)
+   *
+   * Dispatches a storage event on Window objects holding an equivalent Storage object.
+   */
+  setItem(key: string, value: string): void;
+  [name: string]: any;
+}
 
 interface SharedPreferences {
   setString(key: string, value: string): void;
@@ -19,10 +50,6 @@ namespace SharedPreferences {
    * Default typed
    */
   export type DefType = {};
-  export type KeyType<T> = {
-    [key in keyof T]: (defValue: T[key]) => T[key];
-  };
-  export type DefaultKeys = { length: number };
 }
 
 /**
@@ -30,19 +57,22 @@ namespace SharedPreferences {
  */
 class SharedPreferences implements SharedPreferences {
   private static readonly TAG: string = "SharedPreferences";
+  private _storage: Storage;
 
-  public constructor() {}
+  public constructor(storage?: Storage) {
+    this._storage = storage || localStorage;
+  }
 
   public setString(key: string, value: string): void {
-    localStorage.setItem(key, String(value));
+    this._storage.setItem(key, String(value));
   }
 
   public setBoolean(key: string, value: boolean): void {
-    localStorage.setItem(key, String(value));
+    this._storage.setItem(key, String(value));
   }
 
   public setNumber(key: string, value: number): void {
-    localStorage.setItem(key, String(value));
+    this._storage.setItem(key, String(value));
   }
 
   /**
@@ -51,7 +81,7 @@ class SharedPreferences implements SharedPreferences {
    * @param value
    */
   public setJSON<T = Partial<SharedPreferences.DefType>>(key: string, value: Partial<T>): void {
-    localStorage.setItem(key, JSON.stringify(value));
+    this._storage.setItem(key, JSON.stringify(value));
   }
 
   /**
@@ -66,7 +96,7 @@ class SharedPreferences implements SharedPreferences {
    */
   public getString(key: string, defValue: string): string {
     try {
-      const get = localStorage.getItem(key);
+      const get = this._storage.getItem(key);
       if (get === null) {
         return defValue;
       } else {
@@ -95,7 +125,7 @@ class SharedPreferences implements SharedPreferences {
    */
   public getBoolean(key: string, defValue: boolean): boolean {
     try {
-      const get = localStorage.getItem(key);
+      const get = this._storage.getItem(key);
       if (get === null) {
         return defValue;
       } else {
@@ -122,7 +152,7 @@ class SharedPreferences implements SharedPreferences {
    */
   public getNumber(key: string, defValue: number): number {
     try {
-      const get = localStorage.getItem(key);
+      const get = this._storage.getItem(key);
       if (get === null) {
         return defValue;
       } else {
@@ -139,7 +169,7 @@ class SharedPreferences implements SharedPreferences {
 
   public getJSON<T = Partial<SharedPreferences.DefType>>(key: string, defValue: Partial<T>): Partial<T> {
     try {
-      const get = localStorage.getItem(key);
+      const get = this._storage.getItem(key);
       if (get === null) {
         return defValue;
       } else {
@@ -160,7 +190,7 @@ class SharedPreferences implements SharedPreferences {
    * Dispatches a storage event on Window objects holding an equivalent Storage object.
    */
   public removePref(key: string): void {
-    localStorage.removeItem(key);
+    this._storage.removeItem(key);
   }
 
   /**
@@ -169,47 +199,14 @@ class SharedPreferences implements SharedPreferences {
    * Dispatches a storage event on Window objects holding an equivalent Storage object.
    */
   public clearPrefs(): void {
-    localStorage.clear();
+    this._storage.clear();
   }
 }
 
 type sharedpreferences = typeof sharedpreferences[keyof typeof sharedpreferences];
 /**
- * Static SharedPreferences
+ * Static SharedPreferences. Uses `globalThis.localStorage`.
  */
-const sharedpreferences: SharedPreferences = new SharedPreferences();
+const sharedpreferences: SharedPreferences = new SharedPreferences(globalThis.localStorage);
 
-function prefs<K extends SharedPreferences.DefaultKeys = SharedPreferences.DefaultKeys>(): SharedPreferences.KeyType<K> {
-  // @ts-ignore
-  let pref: SharedPreferences.KeyType<K> = Object.keys(localStorage);
-
-  obj.keysMap<void>(localStorage)(key => {
-    switch (typeof localStorage[key]) {
-      case "string":
-        if (obj.hasJsonStructure(localStorage[key])) {
-          pref[key] = <T = Partial<SharedPreferences.DefType>>(defValue: Partial<T>): Partial<T> => {
-            return sharedpreferences.getJSON<T>(key, defValue);
-          };
-        } else {
-          pref[key] = (defValue: string): string => {
-            return sharedpreferences.getString(key, defValue);
-          };
-        }
-        break;
-      case "number":
-        pref[key] = (defValue: number): number => {
-          return sharedpreferences.getNumber(key, defValue);
-        };
-        break;
-      case "boolean":
-        pref[key] = (defValue: boolean): boolean => {
-          return sharedpreferences.getBoolean(key, defValue);
-        };
-        break;
-    }
-  });
-
-  return pref;
-}
-
-export { SharedPreferences, sharedpreferences, prefs, SharedPreferenceError };
+export { SharedPreferences, sharedpreferences, Storage };
