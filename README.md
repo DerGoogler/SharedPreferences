@@ -1,15 +1,31 @@
 # SharedPreferences
 
-An simple class to manage the loacal storage
+An simple class to manage the loacal storage, including React like useString, useJSON and more!
 
 ## Install
 
 ```shell
-npm install --save web-shared-preferences
-npm install --save-dev tslib
+bun add web-shared-preference
 ```
- 
-### Setup
+
+## Usage with React
+
+```tsx
+import { useEffect } from "react";
+import { useString } from "web-shared-preference";
+
+export function App() {
+  const [name, setName] = useString("username", "");
+
+  useEffect(() => {
+    setName("Kevin");
+  }, [name]);
+
+  return <div>Hello {name}!</div>;
+}
+```
+
+## Usage w/o React
 
 ```ts
 import { SharedPreferences } from 'web-shared-preferences';

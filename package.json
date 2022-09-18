@@ -1,7 +1,7 @@
 {
   "name": "web-shared-preferences",
-  "version": "1.1.5",
-  "description": "An simple class to manage the loacal storage",
+  "version": "1.1.6",
+  "description": "An simple class to manage the loacal storage, including React like useString, useJSON and more!",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsup",

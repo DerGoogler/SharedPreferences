@@ -11,4 +11,4 @@ class SharedPreferenceError extends Error implements SharedPreferenceError {
   }
 }
 
-export default SharedPreferenceError;
+export { SharedPreferenceError };
