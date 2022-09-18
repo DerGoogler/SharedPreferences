@@ -1,40 +1,39 @@
 {
   "name": "web-shared-preferences",
-  "version": "1.1.6",
-  "description": "An simple class to manage the loacal storage, including React like useString, useJSON and more!",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsup",
-    "prepare": "tsup"
-  },
-  "resolutions": {
-    "**/typescript": "^4.1.3"
-  },
-  "keywords": [
-    "localstoarge",
-    "tools",
-    "typescript",
-    "sharedpreferences"
-  ],
+  "version": "1.1.7",
+  "author": "Der_Googler",
   "repository": {
     "type": "git",
-    "url": "https://dergoogler.com/dergoogler/SharedPreferences"
+    "url": "https://github.com/DerGoogler/SharedPreferences"
   },
-  "author": "Der_Googler",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://dergoogler.com/dergoogler/SharedPreferences/issues"
-  },
-  "homepage": "https://dergoogler.com/dergoogler/SharedPreferences",
-  "dependencies": {
-    "googlers-tools": "^1.4.3"
-  },
+  "main": "dist/index.js",
   "devDependencies": {
     "localstorage-polyfill": "^1.0.1",
     "tsup": "^6.2.3",
     "typescript": "^4.7.4"
   },
+  "bugs": {
+    "url": "https://github.com/DerGoogler/SharedPreferences/issues"
+  },
+  "description": "An simple class to manage the loacal storage, including React like useString, useJSON and more!",
   "files": [
     "/dist"
-  ]
+  ],
+  "homepage": "https://github.com/DerGoogler/SharedPreferences",
+  "keywords": [
+    "react",
+    "react-state",
+    "localstoarge",
+    "tools",
+    "typescript",
+    "sharedpreferences"
+  ],
+  "license": "GPL-3.0",
+  "resolutions": {
+    "**/typescript": "^4.1.3"
+  },
+  "scripts": {
+    "build": "tsup",
+    "prepare": "tsup"
+  }
 }
