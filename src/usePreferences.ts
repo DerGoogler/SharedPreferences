@@ -55,8 +55,8 @@ function useNumber(key: string, defValue: number): [number, (value: number) => v
   );
 }
 
-function useJSON<T = Partial<any>>(key: string, defValue: Partial<T>): [Partial<T>, (value: Partial<T>) => void] {
-  return usePrefCore<Partial<T>>(
+function useJSON<T = any>(key: string, defValue: T): [T, (value: T) => void] {
+  return usePrefCore<T>(
     key,
     defValue,
     (key, defValue) => pref.getJSON(key, defValue),

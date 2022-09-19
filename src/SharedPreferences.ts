@@ -59,7 +59,7 @@ class SharedPreferences implements SharedPreferences {
    * @param key
    * @param value
    */
-  public setJSON<T = Partial<any>>(key: string, value: Partial<T>): void {
+  public setJSON<T = any>(key: string, value: T): void {
     this._storage.setItem(key, JSON.stringify(value));
   }
 
@@ -134,7 +134,7 @@ class SharedPreferences implements SharedPreferences {
     }
   }
 
-  public getJSON<T = Partial<any>>(key: string, defValue: Partial<T>): Partial<T> {
+  public getJSON<T = any>(key: string, defValue: T): T {
     try {
       const get = this._storage.getItem(key);
       if (get === null) {
