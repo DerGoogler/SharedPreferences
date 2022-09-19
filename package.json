@@ -1,17 +1,12 @@
 {
   "name": "web-shared-preferences",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "author": "Der_Googler",
   "repository": {
     "type": "git",
     "url": "https://github.com/DerGoogler/SharedPreferences"
   },
   "main": "dist/index.js",
-  "devDependencies": {
-    "localstorage-polyfill": "^1.0.1",
-    "tsup": "^6.2.3",
-    "typescript": "^4.7.4"
-  },
   "bugs": {
     "url": "https://github.com/DerGoogler/SharedPreferences/issues"
   },
@@ -35,5 +30,14 @@
   "scripts": {
     "build": "tsup",
     "prepare": "tsup"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.20",
+    "localstorage-polyfill": "^1.0.1",
+    "tsup": "^6.2.3",
+    "typescript": "^4.7.4"
   }
 }

@@ -1,13 +1,6 @@
 import { useReducer } from "react";
 import { SharedPreferences } from ".";
 
-function useForceRender() {
-  const [, forceRender] = useReducer(x => x + 1, 0);
-  return forceRender;
-}
-
-const pref = new SharedPreferences();
-
 /**
  * Used to build different hooks for the `localStorage` implementation
  * @param key To get the value from the local storage
@@ -16,8 +9,8 @@ const pref = new SharedPreferences();
  * @param core_setter
  * @returns
  */
-function usePrefCore<T = any>(key: string, defValue: T, core_getter: (key: string, defValue: T) => T, core_setter: (key: string, value: T) => void): [T, (value: T) => void] {
-  const forceRender = useForceRender();
+function usePref<T = any>(key: string, defValue: T, core_getter: (key: string, defValue: T) => T, core_setter: (key: string, value: T) => void): [T, (value: T) => void] {
+  const [, forceRender] = useReducer(x => x + 1, 0);
   const getter: T = core_getter(key, defValue);
   const setter = (value: T) => {
     core_setter(key, value);
@@ -29,7 +22,8 @@ function usePrefCore<T = any>(key: string, defValue: T, core_getter: (key: strin
 }
 
 function useString(key: string, defValue: string): [string, (value: string) => void] {
-  return usePrefCore<string>(
+  const pref = new SharedPreferences();
+  return usePref<string>(
     key,
     defValue,
     (key, defValue) => pref.getString(key, defValue),
@@ -38,7 +32,8 @@ function useString(key: string, defValue: string): [string, (value: string) => v
 }
 
 function useBoolean(key: string, defValue: boolean): [boolean, (value: boolean) => void] {
-  return usePrefCore<boolean>(
+  const pref = new SharedPreferences();
+  return usePref<boolean>(
     key,
     defValue,
     (key, defValue) => pref.getBoolean(key, defValue),
@@ -47,7 +42,8 @@ function useBoolean(key: string, defValue: boolean): [boolean, (value: boolean) 
 }
 
 function useNumber(key: string, defValue: number): [number, (value: number) => void] {
-  return usePrefCore<number>(
+  const pref = new SharedPreferences();
+  return usePref<number>(
     key,
     defValue,
     (key, defValue) => pref.getNumber(key, defValue),
@@ -56,7 +52,8 @@ function useNumber(key: string, defValue: number): [number, (value: number) => v
 }
 
 function useJSON<T = any>(key: string, defValue: T): [T, (value: T) => void] {
-  return usePrefCore<T>(
+  const pref = new SharedPreferences();
+  return usePref<T>(
     key,
     defValue,
     (key, defValue) => pref.getJSON(key, defValue),
@@ -71,4 +68,4 @@ const usePreferences = {
   json: useJSON,
 };
 
-export { useBoolean, useString, useNumber, usePrefCore, useJSON, usePreferences };
+export { useBoolean, useString, useNumber, usePref, useJSON, usePreferences };
