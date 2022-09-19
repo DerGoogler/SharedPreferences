@@ -2,6 +2,10 @@
 
 An simple class to manage the loacal storage, including React like useString, useJSON and more!
 
+[![npm](https://img.shields.io/npm/v/web-shared-preferences.svg)](https://www.npmjs.com/package/web-shared-preferences)
+[![npm](https://img.shields.io/npm/dt/web-shared-preferences.svg)](https://www.npmjs.com/package/web-shared-preferences.svg)
+![NPM](https://img.shields.io/npm/l/web-shared-preferences)
+
 ## Install
 
 ```shell
