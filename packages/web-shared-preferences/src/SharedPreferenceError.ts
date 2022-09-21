@@ -6,7 +6,7 @@ interface SharedPreferenceError extends ErrorConstructor {
 
 class SharedPreferenceError extends Error implements SharedPreferenceError {
   public constructor(message?: string) {
-    super(message);
+    super(`[SharedPreference] ${message}`);
     this.name = "SharedPreferenceError";
   }
 }

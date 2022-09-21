@@ -1,19 +1,24 @@
 import { useReducer } from "react";
 import { SharedPreferences } from "./SharedPreferences";
 
+export type Dispatch<A> = (value: A) => void;
+export type SetPrefAction<P> = P | ((prevPref: P) => P);
+export type CoreGetter<P> = (key: string, defValue: P) => P;
+export type CoreSetter<P> = (key: string, value: P) => void;
+
 /**
  * Used to build different hooks for the `localStorage` implementation
  * @param key To get the value from the local storage
  * @param defValue Default value to return if the key does not exist
- * @param core_getter
- * @param core_setter
+ * @param coreGetter
+ * @param coreSetter
  * @returns
  */
-export function usePref<T = any>(key: string, defValue: T, core_getter: (key: string, defValue: T) => T, core_setter: (key: string, value: T) => void): [T, (value: T) => void] {
+export function usePref<T>(key: string, defValue: T, coreGetter: CoreGetter<T>, coreSetter: CoreSetter<T>): [T, Dispatch<SetPrefAction<T>>] {
   const [, forceRender] = useReducer((x) => x + 1, 0);
-  const getter: T = core_getter(key, defValue);
-  const setter = (value: T) => {
-    core_setter(key, value);
+  const getter: T = coreGetter(key, defValue);
+  const setter = (value: SetPrefAction<T>) => {
+    coreSetter(key, typeof value == "function" ? (value as any)(getter) : value);
     if (getter !== value) {
       forceRender();
     }

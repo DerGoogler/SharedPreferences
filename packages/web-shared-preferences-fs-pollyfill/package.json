@@ -1,6 +1,6 @@
 {
-  "name": "web-shared-preferences",
-  "version": "1.2.1",
+  "name": "web-shared-preferences-fs-pollyfill",
+  "version": "1.0.0",
   "author": "Der_Googler",
   "repository": {
     "type": "git",
@@ -10,14 +10,13 @@
   "bugs": {
     "url": "https://github.com/DerGoogler/SharedPreferences/issues"
   },
-  "description": "An simple class to manage the loacal storage, including React like useString, useJSON and more!",
+  "description": "Pollyfill to use SharedPreferences outside of browsers",
   "files": [
     "/dist"
   ],
   "homepage": "https://github.com/DerGoogler/SharedPreferences",
   "keywords": [
-    "react",
-    "react-state",
+    "pllyfill",
     "localstoarge",
     "tools",
     "typescript",
@@ -28,16 +27,11 @@
     "**/typescript": "^4.1.3"
   },
   "scripts": {
-    "build": "tsup",
-    "prepare": "tsup"
+    "build": "rm -rf ./dist/ && tsc",
+    "prepare": "npm run build"
   },
-  "dependencies": {
-    "react": "^18.2.0"
-  },
+  "dependencies": { "web-shared-preferences": "^1.2.3" },
   "devDependencies": {
-    "@types/react": "^18.0.20",
-    "localstorage-polyfill": "^1.0.1",
-    "tsup": "^6.2.3",
     "typescript": "^4.7.4"
   }
 }
