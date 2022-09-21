@@ -16,10 +16,10 @@ bun add web-shared-preference
 
 ```tsx
 import { useEffect } from "react";
-import { useString } from "web-shared-preference";
+import { useLocalStorage /* useSessionStorage */ } from "web-shared-preference";
 
 export function App() {
-  const [name, setName] = useString("username", "");
+  const [name, setName] = useLocalStorage.string("username", "");
 
   useEffect(() => {
     setName("Kevin");
@@ -32,35 +32,34 @@ export function App() {
 ## Usage w/o React
 
 ```ts
-import { SharedPreferences } from 'web-shared-preferences';
+import { SharedPreferences } from "web-shared-preferences";
 
 interface Person {
-    name: string
-    age:number
-    weight: `${string}kg`
+  name: string;
+  age: number;
+  weight: `${string}kg`;
 }
 
 class App {
-    private pref: SharedPreferences
+  private pref: SharedPreferences;
 
-    public constructor(...args: any[]) {
-        this.pref = new SharedPreferences();
-    }
-    // ... your usage
+  public constructor(...args: any[]) {
+    this.pref = new SharedPreferences();
+  }
+  // ... your usage
 }
 
 // or functional
 function App() {
-    const pref: SharedPreferences = new SharedPreferences();
+  const pref: SharedPreferences = new SharedPreferences();
 
-    pref.setJSON<Person>("myKey", {
-        name: "Kevin",
-        age: 36,
-        weight: "90kg",
-    })
+  pref.setJSON<Person>("myKey", {
+    name: "Kevin",
+    age: 36,
+    weight: "90kg",
+  });
 
-    // Make it partial tp prevent runtime errors
-    console.log(pref.getJSON<Partial<Person>("myKey", {}))
+  // Make it partial tp prevent runtime errors
+  console.log(pref.getJSON < Partial<Person>("myKey", {}));
 }
-
 ```
