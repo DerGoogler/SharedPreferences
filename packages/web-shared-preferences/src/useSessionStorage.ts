@@ -1,10 +1,11 @@
 import { Dispatcher } from "./dispatcher";
 
+const dispatcher = new Dispatcher(window.sessionStorage);
 const useSessionStorage = {
-  string: Dispatcher(globalThis.sessionStorage).useString,
-  boolean: Dispatcher(globalThis.sessionStorage).useBoolean,
-  number: Dispatcher(globalThis.sessionStorage).useNumber,
-  json: Dispatcher(globalThis.sessionStorage).useJSON,
+  string: dispatcher.useString,
+  boolean: dispatcher.useBoolean,
+  number: dispatcher.useNumber,
+  json: dispatcher.useJSON,
 };
 
 export { useSessionStorage };

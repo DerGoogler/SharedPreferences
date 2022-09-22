@@ -14,6 +14,8 @@ bun add web-shared-preference
 
 ## Usage with React
 
+> See an [example](https://codesandbox.io/s/wswpfr)
+
 ```tsx
 import { useEffect } from "react";
 import { useLocalStorage /* useSessionStorage */ } from "web-shared-preference";
@@ -62,4 +64,25 @@ function App() {
   // Make it partial tp prevent runtime errors
   console.log(pref.getJSON < Partial<Person>("myKey", {}));
 }
+```
+
+# Documentation
+
+I try my best
+
+## Create a new hook dispatcher for React
+
+```ts
+import { Dispatcher } from "web-shared-preference";
+import { SharedPreferencesFsPollyfill } from "web-shared-preferences-fs-pollyfill";
+
+const dispatcher = new Dispatcher(new SharedPreferencesFsPollyfill("./local.json"));
+const useFsStorage = {
+  string: dispatcher.useString,
+  boolean: dispatcher.useBoolean,
+  number: dispatcher.useNumber,
+  json: dispatcher.useJSON,
+};
+
+export { useFsStorage };
 ```

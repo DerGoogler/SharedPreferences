@@ -1,10 +1,11 @@
 import { Dispatcher } from "./dispatcher";
 
+const dispatcher = new Dispatcher(window.localStorage);
 const useLocalStorage = {
-  string: Dispatcher(globalThis.localStorage).useString,
-  boolean: Dispatcher(globalThis.localStorage).useBoolean,
-  number: Dispatcher(globalThis.localStorage).useNumber,
-  json: Dispatcher(globalThis.localStorage).useJSON,
+  string: dispatcher.useString,
+  boolean: dispatcher.useBoolean,
+  number: dispatcher.useNumber,
+  json: dispatcher.useJSON,
 };
 
 export { useLocalStorage };

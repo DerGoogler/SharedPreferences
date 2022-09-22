@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { SharedPreferences } from "./SharedPreferences";
+import { SharedPreferences, Storage } from "./SharedPreferences";
 
 export type Dispatch<A> = (value: A) => void;
 export type SetPrefAction<P> = P | ((prevPref: P) => P);
@@ -26,46 +26,45 @@ export function usePref<T>(key: string, defValue: T, coreGetter: CoreGetter<T>, 
   return [getter, setter];
 }
 
-export function Dispatcher(storage: Storage) {
-  return {
-    useString(key: string, defValue: string): [string, (value: string) => void] {
-      const pref = new SharedPreferences(storage);
-      return usePref<string>(
-        key,
-        defValue,
-        (key, defValue) => pref.getString(key, defValue),
-        (key, value) => pref.setString(key, value)
-      );
-    },
+export class Dispatcher {
+  private _pref: SharedPreferences;
 
-    useBoolean(key: string, defValue: boolean): [boolean, (value: boolean) => void] {
-      const pref = new SharedPreferences(storage);
-      return usePref<boolean>(
-        key,
-        defValue,
-        (key, defValue) => pref.getBoolean(key, defValue),
-        (key, value) => pref.setBoolean(key, value)
-      );
-    },
+  public constructor(storage: Storage) {
+    this._pref = new SharedPreferences(storage);
+  }
 
-    useNumber(key: string, defValue: number): [number, (value: number) => void] {
-      const pref = new SharedPreferences(storage);
-      return usePref<number>(
-        key,
-        defValue,
-        (key, defValue) => pref.getNumber(key, defValue),
-        (key, value) => pref.setNumber(key, value)
-      );
-    },
+  public useString(key: string, defValue: string): [string, (value: string) => void] {
+    return usePref<string>(
+      key,
+      defValue,
+      (key, defValue) => this._pref.getString(key, defValue),
+      (key, value) => this._pref.setString(key, value)
+    );
+  }
 
-    useJSON<T = any>(key: string, defValue: T): [T, (value: T) => void] {
-      const pref = new SharedPreferences(storage);
-      return usePref<T>(
-        key,
-        defValue,
-        (key, defValue) => pref.getJSON(key, defValue),
-        (key, value) => pref.setJSON(key, value)
-      );
-    },
-  };
+  public useBoolean(key: string, defValue: boolean): [boolean, (value: boolean) => void] {
+    return usePref<boolean>(
+      key,
+      defValue,
+      (key, defValue) => this._pref.getBoolean(key, defValue),
+      (key, value) => this._pref.setBoolean(key, value)
+    );
+  }
+  public useNumber(key: string, defValue: number): [number, (value: number) => void] {
+    return usePref<number>(
+      key,
+      defValue,
+      (key, defValue) => this._pref.getNumber(key, defValue),
+      (key, value) => this._pref.setNumber(key, value)
+    );
+  }
+
+  public useJSON<T = any>(key: string, defValue: T): [T, (value: T) => void] {
+    return usePref<T>(
+      key,
+      defValue,
+      (key, defValue) => this._pref.getJSON(key, defValue),
+      (key, value) => this._pref.setJSON(key, value)
+    );
+  }
 }
