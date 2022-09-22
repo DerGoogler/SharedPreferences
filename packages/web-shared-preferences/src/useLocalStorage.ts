@@ -1,6 +1,7 @@
-import { Dispatcher } from "./dispatcher";
+import { Dispatcher } from "./Dispatcher";
+import { LocalStorage } from "./utils";
 
-const dispatcher = new Dispatcher(window.localStorage);
+const dispatcher = new Dispatcher(LocalStorage);
 const useLocalStorage = {
   string: dispatcher.useString,
   boolean: dispatcher.useBoolean,

@@ -86,3 +86,21 @@ const useFsStorage = {
 
 export { useFsStorage };
 ```
+
+## Setting up an FS pollyfill
+
+```js
+const fs = require("fs");
+const { SharedPreferences } = require("web-shared-preferences");
+const { SharedPreferencesFsPollyfill } = require("web-shared-preferences-fs-pollyfill");
+
+const pref = new SharedPreferences(new SharedPreferencesFsPollyfill("./test/local.json"));
+
+pref.setString("name", "Kevin");
+pref.setString("last", "Olaf");
+pref.setJSON("json", {
+  name: "Hellow",
+});
+
+console.log(`${pref.getString("name", null)} (${pref.getString("last", "")})`);
+```

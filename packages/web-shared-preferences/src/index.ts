@@ -1,5 +1,5 @@
-// Do not export dispatcher
-export { usePref } from "./dispatcher";
+export { LocalStorage, SessionStorage } from "./utils";
+export * from "./Dispatcher";
 export * from "./SharedPreferences";
 export * from "./useLocalStorage";
 export * from "./useSessionStorage";

@@ -1,6 +1,7 @@
-import { Dispatcher } from "./dispatcher";
+import { Dispatcher } from "./Dispatcher";
+import { SessionStorage } from "./utils";
 
-const dispatcher = new Dispatcher(window.sessionStorage);
+const dispatcher = new Dispatcher(SessionStorage);
 const useSessionStorage = {
   string: dispatcher.useString,
   boolean: dispatcher.useBoolean,
