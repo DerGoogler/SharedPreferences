@@ -1,7 +1,7 @@
 import { Dispatcher } from "./Dispatcher";
 import { LocalStorage } from "./LocalStorage";
 
-const dispatcher = new Dispatcher(new LocalStorage());
+const dispatcher = Dispatcher(LocalStorage());
 const useLocalStorage = {
   string: dispatcher.useString,
   boolean: dispatcher.useBoolean,

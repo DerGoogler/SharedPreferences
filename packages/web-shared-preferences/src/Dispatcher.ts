@@ -26,45 +26,41 @@ export function usePref<T>(key: string, defValue: T, coreGetter: CoreGetter<T>, 
   return [getter, setter];
 }
 
-export class Dispatcher {
-  public pref: SharedPreferences;
+export function Dispatcher(storage: StorageImpl) {
+  const pref = new SharedPreferences(storage);
 
-  public constructor(storage: StorageImpl) {
-    this.pref = new SharedPreferences(storage);
-  }
-
-  public useString(key: string, defValue: string): [string, Dispatch<SetPrefAction<string>>] {
-    return usePref<string>(
-      key,
-      defValue,
-      (key, defValue) => this.pref.getString(key, defValue),
-      (key, value) => this.pref.setString(key, value)
-    );
-  }
-
-  public useBoolean(key: string, defValue: boolean): [boolean, Dispatch<SetPrefAction<boolean>>] {
-    return usePref<boolean>(
-      key,
-      defValue,
-      (key, defValue) => this.pref.getBoolean(key, defValue),
-      (key, value) => this.pref.setBoolean(key, value)
-    );
-  }
-  public useNumber(key: string, defValue: number): [number, Dispatch<SetPrefAction<number>>] {
-    return usePref<number>(
-      key,
-      defValue,
-      (key, defValue) => this.pref.getNumber(key, defValue),
-      (key, value) => this.pref.setNumber(key, value)
-    );
-  }
-
-  public useJSON<T = any>(key: string, defValue: T): [T, Dispatch<SetPrefAction<T>>] {
-    return usePref<T>(
-      key,
-      defValue,
-      (key, defValue) => this.pref.getJSON(key, defValue),
-      (key, value) => this.pref.setJSON(key, value)
-    );
-  }
+  return {
+    useString(key: string, defValue: string): [string, Dispatch<SetPrefAction<string>>] {
+      return usePref<string>(
+        key,
+        defValue,
+        (key, defValue) => pref.getString(key, defValue),
+        (key, value) => pref.setString(key, value)
+      );
+    },
+    useBoolean(key: string, defValue: boolean): [boolean, Dispatch<SetPrefAction<boolean>>] {
+      return usePref<boolean>(
+        key,
+        defValue,
+        (key, defValue) => pref.getBoolean(key, defValue),
+        (key, value) => pref.setBoolean(key, value)
+      );
+    },
+    useNumber(key: string, defValue: number): [number, Dispatch<SetPrefAction<number>>] {
+      return usePref<number>(
+        key,
+        defValue,
+        (key, defValue) => pref.getNumber(key, defValue),
+        (key, value) => pref.setNumber(key, value)
+      );
+    },
+    useJSON<T = any>(key: string, defValue: T): [T, Dispatch<SetPrefAction<T>>] {
+      return usePref<T>(
+        key,
+        defValue,
+        (key, defValue) => pref.getJSON(key, defValue),
+        (key, value) => pref.setJSON(key, value)
+      );
+    },
+  };
 }

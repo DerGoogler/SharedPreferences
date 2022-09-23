@@ -2,34 +2,32 @@ import { StorageImpl } from "./SharedPreferences";
 import { TempLocalStorage } from "./TempLocalStorage";
 
 /** For browsers will `window.sessionStorage` used, for Node.js will an temp local storage used */
-export const sessionStorage = typeof window !== "undefined" ? window.sessionStorage : new TempLocalStorage();
+export function SessionStorage(): StorageImpl {
+  const sessionStorage = typeof window !== "undefined" ? window.sessionStorage : new TempLocalStorage();
 
-export class SessionStorage implements StorageImpl {
-  public constructor() {}
+  return {
+    get length(): number {
+      return localStorage.length;
+    },
 
-  [name: string]: any;
+    setItem(key: string, value: string): void {
+      sessionStorage.setItem(key, value);
+    },
 
-  public get length(): number {
-    return sessionStorage.length;
-  }
+    getItem(key: string): string | null {
+      return sessionStorage.getItem(key);
+    },
 
-  public setItem(key: string, value: string): void {
-    sessionStorage.setItem(key, value);
-  }
+    clear(): void {
+      sessionStorage.clear();
+    },
 
-  public getItem(key: string): string | null {
-    return sessionStorage.getItem(key);
-  }
+    removeItem(key: string): void {
+      sessionStorage.removeItem(key);
+    },
 
-  public clear(): void {
-    sessionStorage.clear();
-  }
-
-  public removeItem(key: string): void {
-    sessionStorage.removeItem(key);
-  }
-
-  public key(index: number): string | null {
-    return sessionStorage.key(index);
-  }
+    key(index: number): string | null {
+      return sessionStorage.key(index);
+    },
+  };
 }

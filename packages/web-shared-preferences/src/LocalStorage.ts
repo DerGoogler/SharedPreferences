@@ -2,34 +2,32 @@ import { StorageImpl } from "./SharedPreferences";
 import { TempLocalStorage } from "./TempLocalStorage";
 
 /** For browsers will `window.localStorage` used, for Node.js will an temp local storage used */
-export const localStorage = typeof window !== "undefined" ? window.localStorage : new TempLocalStorage();
+export function LocalStorage(): StorageImpl {
+  const localStorage = typeof window !== "undefined" ? window.localStorage : new TempLocalStorage();
 
-export class LocalStorage implements StorageImpl {
-  public constructor() {}
+  return {
+    get length(): number {
+      return localStorage.length;
+    },
 
-  [name: string]: any;
+    setItem(key: string, value: string): void {
+      localStorage.setItem(key, value);
+    },
 
-  public get length(): number {
-    return localStorage.length;
-  }
+    getItem(key: string): string | null {
+      return localStorage.getItem(key);
+    },
 
-  public setItem(key: string, value: string): void {
-    localStorage.setItem(key, value);
-  }
+    clear(): void {
+      localStorage.clear();
+    },
 
-  public getItem(key: string): string | null {
-    return localStorage.getItem(key);
-  }
+    removeItem(key: string): void {
+      localStorage.removeItem(key);
+    },
 
-  public clear(): void {
-    localStorage.clear();
-  }
-
-  public removeItem(key: string): void {
-    localStorage.removeItem(key);
-  }
-
-  public key(index: number): string | null {
-    return localStorage.key(index);
-  }
+    key(index: number): string | null {
+      return localStorage.key(index);
+    },
+  };
 }

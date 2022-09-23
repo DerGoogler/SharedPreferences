@@ -149,6 +149,6 @@ class SharedPreferences {
 /**
  * Static SharedPreferences. Uses `window.localStorage`.
  */
-const sharedpreferences: SharedPreferences = new SharedPreferences(new LocalStorage());
+const sharedpreferences: SharedPreferences = new SharedPreferences(LocalStorage());
 
 export { SharedPreferences, sharedpreferences };

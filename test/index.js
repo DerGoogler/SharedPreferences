@@ -5,6 +5,7 @@ const {
   SharedPreferences,
   useLocalStorage,
   Dispatcher,
+  usePref,
 } = require("./../packages/web-shared-preferences/dist/index");
 const {
   SharedPreferencesFsPollyfill,
@@ -13,15 +14,12 @@ const {
 const pref = new SharedPreferences(
   new SharedPreferencesFsPollyfill("./test/local.json")
 );
-export function usePref(key, defValue) {
-  const getter = pref.getString(key, defValue);
-  const setter = (value) => {
-    pref.setString(key, typeof value == "function" ? value(getter) : value);
-  };
-  return [getter, setter];
-}
 
-const [name, setName] = usePref("name", "");
+const dispatcher = new Dispatcher(
+  new SharedPreferencesFsPollyfill("./test/local.json")
+);
+
+const [name, setName] = dispatcher.useString("name", "");
 
 setName((pp) => {
   return pp + " ya";
