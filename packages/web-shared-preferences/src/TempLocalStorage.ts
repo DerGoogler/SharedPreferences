@@ -1,9 +1,9 @@
-import { Storage } from "./SharedPreferences";
+import { StorageImpl } from "./SharedPreferences";
 
 /**
  * Used for debugging purposes only.
  */
-export class TempLocalStorage implements Storage {
+export class TempLocalStorage implements StorageImpl {
   private valuesMap: Map<any, any>;
   
   public constructor() {

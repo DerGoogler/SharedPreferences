@@ -1,8 +1,8 @@
+import { LocalStorage } from "./LocalStorage";
 import { SharedPreferenceError } from "./SharedPreferenceError";
-import { LocalStorage } from "./utils";
 
-export interface Storage {
-  readonly length: number;
+export interface StorageImpl {
+  get length(): number;
   setItem(key: string, value: string): void;
   getItem(key: string): string | null;
   clear(): void;
@@ -16,9 +16,9 @@ export interface Storage {
  */
 class SharedPreferences {
   private static readonly TAG: string = "SharedPreferences";
-  private _storage: Storage;
+  private _storage: StorageImpl;
 
-  public constructor(storage: Storage) {
+  public constructor(storage: StorageImpl) {
     this._storage = storage;
   }
 
@@ -149,6 +149,6 @@ class SharedPreferences {
 /**
  * Static SharedPreferences. Uses `window.localStorage`.
  */
-const sharedpreferences: SharedPreferences = new SharedPreferences(LocalStorage);
+const sharedpreferences: SharedPreferences = new SharedPreferences(new LocalStorage());
 
 export { SharedPreferences, sharedpreferences };

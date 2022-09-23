@@ -1,4 +1,5 @@
-export { LocalStorage, SessionStorage } from "./utils";
+export * from "./LocalStorage";
+export * from "./SessionStorage";
 export * from "./Dispatcher";
 export * from "./SharedPreferences";
 export * from "./useLocalStorage";
