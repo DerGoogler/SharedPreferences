@@ -56,7 +56,7 @@ class SharedPreferences {
   public getString(key: string, defValue: string): string {
     try {
       const get = this._storage.getItem(key);
-      if (get) {
+      if (get === (null || undefined)) {
         return defValue;
       } else {
         return String(get);
@@ -81,7 +81,7 @@ class SharedPreferences {
   public getBoolean(key: string, defValue: boolean): boolean {
     try {
       const get = this._storage.getItem(key);
-      if (get) {
+      if (get === (null || undefined)) {
         return defValue;
       } else {
         return get === "true";
@@ -104,7 +104,7 @@ class SharedPreferences {
   public getNumber(key: string, defValue: number): number {
     try {
       const get = this._storage.getItem(key);
-      if (get) {
+      if (get === (null || undefined)) {
         return defValue;
       } else {
         return Number(get);
@@ -117,7 +117,7 @@ class SharedPreferences {
   public getJSON<T = any>(key: string, defValue: T): T {
     try {
       const get = this._storage.getItem(key);
-      if (get) {
+      if (get === (null || undefined)) {
         return defValue;
       } else {
         return JSON.parse(get);
