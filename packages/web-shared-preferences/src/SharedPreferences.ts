@@ -56,10 +56,13 @@ class SharedPreferences {
   public getString(key: string, defValue: string): string {
     try {
       const get = this._storage.getItem(key);
-      if (get === (null || undefined)) {
-        return defValue;
-      } else {
-        return String(get);
+      switch (get) {
+        case null:
+          return defValue;
+        case undefined:
+          return defValue;
+        default:
+          return get;
       }
     } catch (e) {
       throw new SharedPreferenceError((e as Error).message);
@@ -81,10 +84,13 @@ class SharedPreferences {
   public getBoolean(key: string, defValue: boolean): boolean {
     try {
       const get = this._storage.getItem(key);
-      if (get === (null || undefined)) {
-        return defValue;
-      } else {
-        return get === "true";
+      switch (get) {
+        case null:
+          return defValue;
+        case undefined:
+          return defValue;
+        default:
+          return get === "true";
       }
     } catch (e) {
       throw new SharedPreferenceError((e as Error).message);
@@ -104,10 +110,13 @@ class SharedPreferences {
   public getNumber(key: string, defValue: number): number {
     try {
       const get = this._storage.getItem(key);
-      if (get === (null || undefined)) {
-        return defValue;
-      } else {
-        return Number(get);
+      switch (get) {
+        case null:
+          return defValue;
+        case undefined:
+          return defValue;
+        default:
+          return Number(get);
       }
     } catch (e) {
       throw new SharedPreferenceError((e as Error).message);
@@ -117,10 +126,13 @@ class SharedPreferences {
   public getJSON<T = any>(key: string, defValue: T): T {
     try {
       const get = this._storage.getItem(key);
-      if (get === (null || undefined)) {
-        return defValue;
-      } else {
-        return JSON.parse(get);
+      switch (get) {
+        case null:
+          return defValue;
+        case undefined:
+          return defValue;
+        default:
+          return JSON.parse(get);
       }
     } catch (e) {
       throw new SharedPreferenceError((e as Error).message);
