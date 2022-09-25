@@ -23,12 +23,6 @@ export class SharedPreferencesFsPollyfill extends TempLocalStorage implements St
   }
 
   public getItem(key: string) {
-    // const stringKey = String(key);
-    // if (this.valueMap.has(key)) {
-    //   return String(this.valueMap.get(stringKey));
-    // }
-    // return null;
-
     return this.loadFile(this.path)[key];
   }
 
@@ -39,13 +33,15 @@ export class SharedPreferencesFsPollyfill extends TempLocalStorage implements St
   }
 
   public removeItem(key: string) {
-    // this.valueMap.delete(key);
-    // this.update();
+    let tmp = this.loadFile(this.path);
+    delete tmp[key];
+    this.writeData(this.path, tmp);
   }
 
   public clear() {
-    // this.valueMap.clear();
-    // this.update();
+    let tmp = this.loadFile(this.path);
+    tmp = {};
+    this.writeData(this.path, tmp);
   }
 
   public key(i: number): string {
@@ -56,23 +52,3 @@ export class SharedPreferencesFsPollyfill extends TempLocalStorage implements St
     return Object.keys(this.loadFile(this.path)).length;
   }
 }
-
-// export const _SharedPreferencesFsPollyfill = (path) => {
-//   let firstValue = {};
-
-//   const coreSetItem = (key, value) => {};
-//   const coreGetItem = (key) => {
-//     return JSON.parse(fs.readFileSync(path, "utf8"))[key];
-//   };
-
-//   return {
-//     length: 0,
-//     setItem: coreSetItem,
-//     getItem: coreGetItem,
-//     clear: () => {},
-//     key: (index) => {
-//       return null;
-//     },
-//     removeItem: (key) => {},
-//   };
-// };

@@ -15,6 +15,18 @@ const pref = new SharedPreferences(
   new SharedPreferencesFsPollyfill("./test/local.json")
 );
 
-pref.removePref("name")
+const times = (n) => (f) => {
+  let iter = (i) => {
+    if (i === n) return;
+    f(i);
+    iter(i + 1);
+  };
+  return iter(0);
+};
 
-console.log(pref.hasPref("name"));
+times(10000)((f) => {
+  console.log(`New preference "name_${f}"`);
+  pref.setBoolean(`name_${f}`, true);
+});
+
+pref.clearPrefs();

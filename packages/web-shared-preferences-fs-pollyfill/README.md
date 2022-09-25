@@ -1,6 +1,8 @@
 # SharedPreferences FS Pollyfill
 
-Pollyfill to use SharedPreferences outside of browsers
+Pollyfill to use SharedPreferences outside of browsers.
+
+> I know, it should be an "polyfill", ignore my type mistake
 
 [![npm](https://img.shields.io/npm/v/web-shared-preferences-fs-pollyfill.svg)](https://www.npmjs.com/package/web-shared-preferences-fs-pollyfill)
 [![npm](https://img.shields.io/npm/dt/web-shared-preferences-fs-pollyfill.svg)](https://www.npmjs.com/package/web-shared-preferences-fs-pollyfill)
