@@ -156,6 +156,21 @@ class SharedPreferences {
   public clearPrefs(): void {
     this._storage.clear();
   }
+
+  /**
+   * **Beta** element, be secure with that!
+   */
+  public hasPref(key: string): boolean {
+    const get = this._storage.getItem(key);
+    switch (get) {
+      case null:
+        return false;
+      case undefined:
+        return false;
+      default:
+        return true;
+    }
+  }
 }
 
 /**

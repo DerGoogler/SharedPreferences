@@ -15,14 +15,6 @@ const pref = new SharedPreferences(
   new SharedPreferencesFsPollyfill("./test/local.json")
 );
 
-const dispatcher = new Dispatcher(
-  new SharedPreferencesFsPollyfill("./test/local.json")
-);
+pref.removePref("name")
 
-const [name, setName] = dispatcher.useString("name", "");
-
-setName((pp) => {
-  return pp + " ya";
-});
-
-console.log(name);
+console.log(pref.hasPref("name"));

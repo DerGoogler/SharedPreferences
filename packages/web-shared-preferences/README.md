@@ -55,6 +55,9 @@ class App {
 function App() {
   const pref: SharedPreferences = new SharedPreferences();
 
+  // Check if your wanted preferences are exist
+  if (pref.hasPref("myKey")) console.log("There is a preference named 'myKey'");
+
   pref.setJSON<Person>("myKey", {
     name: "Kevin",
     age: 36,
